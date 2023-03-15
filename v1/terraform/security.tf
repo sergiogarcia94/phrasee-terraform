@@ -1,25 +1,25 @@
 # RSA KEY generation
-resource "tls_private_key" "nginx_instance_rsa" {
+resource "tls_private_key" "instance_rsa" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-resource "aws_secretsmanager_secret" "nginx_instance_pem" {
-  name = "/${var.stack_key_path}/rsa.pem"
+resource "aws_secretsmanager_secret" "instance_pem" {
+  name = "/${var.stack_key_path}/rsa1.pem"
 }
 
-resource "aws_secretsmanager_secret_version" "nginx_instance_pem_value" {
-  secret_id     = aws_secretsmanager_secret.nginx_instance_pem.id
-  secret_string = tls_private_key.nginx_instance_rsa.private_key_openssh
+resource "aws_secretsmanager_secret_version" "instance_pem_value" {
+  secret_id     = aws_secretsmanager_secret.instance_pem.id
+  secret_string = tls_private_key.instance_rsa.private_key_openssh
 }
 
 resource "aws_key_pair" "generated_key" {
   key_name   = local.ssh_key_name
-  public_key = tls_private_key.nginx_instance_rsa.public_key_openssh
+  public_key = tls_private_key.instance_rsa.public_key_openssh
 }
 
 # tf module docs: https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/4.17.1
-module "ec2_nginx_sg" {
+module "ec2_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.17"
 

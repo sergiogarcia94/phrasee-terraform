@@ -57,8 +57,8 @@ MEMORY=$(echo "$STATS" | jq -r .[$i].memory.percent | sed 's/%//')
 CONTAINER=$(echo $STATS | jq -r .[$i].container)
 CONTAINER_NAME=$(echo $STATS | jq -r .[$i].name)
 
-aws cloudwatch put-metric-data --metric-name CPU --namespace DockerStats --unit Percent --value $CPU --dimensions InstanceId=$INSTANCE_ID,ContainerId=$CONTAINER,ContainerName=$CONTAINER_NAME --region $REGION
-aws cloudwatch put-metric-data --metric-name Memory --namespace DockerStats --unit Percent --value $MEMORY --dimensions InstanceId=$INSTANCE_ID,ContainerId=$CONTAINER,ContainerName=$CONTAINER_NAME --region $REGION
+aws cloudwatch put-metric-data --metric-name CPU --namespace DockerStats --unit Percent --value $CPU --dimensions InstanceId=$INSTANCE_ID,ContainerName=$CONTAINER_NAME --region $REGION
+aws cloudwatch put-metric-data --metric-name Memory --namespace DockerStats --unit Percent --value $MEMORY --dimensions InstanceId=$INSTANCE_ID,ContainerName=$CONTAINER_NAME --region $REGION
 
 done
 EOF

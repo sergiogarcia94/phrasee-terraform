@@ -5,18 +5,23 @@ Built using Terraform `v1.4.0`
 
 #### v1
 ```
-$ make plan
+// This will the VPC and all the networking resources
+$ AWS_PROFILE=phrasee_terraform make plan
 
-$ make apply
+// To use an existing VPC
+$ AWS_PROFILE=phrasee_terraform make plan external_vpc_id=vpc-XXXXXX external_public_subnet_id=subnet-XXXXXX
+
+// This will the VPC and all the networking resources
+$ AWS_PROFILE=phrasee_terraform make apply
+
+// To use an existing VPC
+$ AWS_PROFILE=phrasee_terraform make apply external_vpc_id=vpc-XXXXXX external_public_subnet_id=subnet-XXXXXX
 ```
+To configure the deployment add the required values to v1/terraform/config.tfvars
 
 #### v2
-This version is using Hashicorp Packer to build the AMI, to avoid changes in running EC2 instances
-```
-$ make plan
+This version will using Hashicorp Packer to build the AMI, to avoid changes in running EC2 instances
 
-$ make apply
-```
 
 ### Next steps
 - If the use case is to serve static html files from s3 and you are not using nginx features use cloudfront instead

@@ -196,9 +196,15 @@ variable "instance_profile_name" {
 }
 
 ########### observability
-variable "cloudwatchMetricsList" {
+variable "cloudwatchEC2MetricList" {
   type        = list(string)
-  description = "List of metrics to add to cloudwatch dashboard"
+  description = "List of EC2 metrics to add to cloudwatch dashboard"
+  default     = []
+}
+
+variable "cloudwatchDockerMetricList" {
+  type        = list(string)
+  description = "List of Docker metrics to add to cloudwatch dashboard"
   default     = []
 }
 

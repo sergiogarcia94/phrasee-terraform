@@ -31,7 +31,7 @@ module "ec2_instance" {
   key_name = aws_key_pair.generated_key.key_name
 
   monitoring             = true
-  vpc_security_group_ids = [module.ec2_nginx_sg.security_group_id]
+  vpc_security_group_ids = [module.ec2_sg.security_group_id]
   subnet_id              = local.ec2_instance_subnet_id
 
   iam_instance_profile = aws_iam_instance_profile.test_profile.id

@@ -19,7 +19,6 @@ module "s3_bucket_configs" {
 
 
 # THIS IS PART OF THE CD PIPELINE
-/*
 resource "aws_s3_object" "s3_html_page" {
   bucket = module.s3_bucket_configs.s3_bucket_id
   key    = "/phrasee-terraform/v1/terraform/files/static_web.html"
@@ -27,4 +26,3 @@ resource "aws_s3_object" "s3_html_page" {
 
   etag = filemd5("files/index.html")
 }
-*/

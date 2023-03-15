@@ -6,12 +6,12 @@ terraform {
     }
   }
 
-  # If you want to enable remote state target an existing s3 bucket
+  # Target an existing s3 bucket to enable remote state
   backend "s3" {
     bucket = "sgarcia-phrasee-configuration-bucket"
     key    = "phrasee-terraform/v1/terraform/tf.state"
     region = "eu-west-1"
-    # If you want to enable locking target an existing dynamodb table
+    # Target an existing dynamodb table to enable state locking
     # dynamodb_table  = "dynamodb-state-locking"
   }
 }

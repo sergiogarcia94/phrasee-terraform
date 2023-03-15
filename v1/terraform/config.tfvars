@@ -28,8 +28,20 @@ external_cidr = "2.153.41.170/32"
 
 ## Observability
 log_group_name = "/ec2/nginx"
-cloudwatchMetricsList = [
+cloudwatchEC2MetricList = [
   "CPUUtilization",
+  "NetworkIn",
+  "NetworkOut",
+  "NetworkPacketsIn",
+  "NetworkPacketsOut",
+  "StatusCheckFailed",
+  "StatusCheckFailed_Instance",
+  "StatusCheckFailed_System"
+]
+
+cloudwatchDockerMetricList = [
+  "Memory",
+  "CPU"
 ]
 
 naming_prefix = "sgarcia-phrasee"
