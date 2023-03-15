@@ -1,15 +1,19 @@
-# tf module docs: https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/3.19.0
+# module docs: https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/3.19.0
 module "vpc" {
+  count = var.create_networking ? 1 : 0
+
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 3.19"
 
-  name = "${var.resource_prefix}-vpc"
-  cidr = "10.20.0.0/16"
+  name = local.vpc_name
+  cidr = var.vpc_cidr
 
-  azs             = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
-  private_subnets = ["10.20.1.0/24", "10.20.2.0/24", "10.20.3.0/24"]
-  public_subnets  = ["10.20.101.0/24", "10.20.102.0/24", "10.20.103.0/24"]
+  azs             = var.vpc_azs
+  private_subnets = var.vpc_private_subnets
+  public_subnets  = var.vpc_public_subnets
 
-  enable_nat_gateway = false
-  enable_vpn_gateway = true
+  enable_nat_gateway = var.enable_nat_gateway
+  create_igw         = var.create_igw
+
+  tags = merge(local.common_tags, var.vpc_tags)
 }

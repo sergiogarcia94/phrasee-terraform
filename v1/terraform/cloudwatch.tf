@@ -1,21 +1,18 @@
 resource "aws_cloudwatch_log_group" "nginx_instance" {
-  name = "/ecs/nginx"
+  name = var.log_group_name
 
-  tags = {
-    Environment = "production"
-    Application = "serviceA"
-  }
+  tags = local.common_tags
 }
 
-resource "aws_cloudwatch_dashboard" "main" {
-  dashboard_name = "my-dashboard"
+resource "aws_cloudwatch_dashboard" "instance_dashboard" {
+  dashboard_name = local.cw_dashboard_name
 
   dashboard_body = jsonencode({
     "widgets" = [
       for metric in var.cloudwatchMetricsList : {
         type   = "metric"
-        width  = 12
-        height = 6
+        width  = var.cw_widget_width
+        height = var.cw_widget_height
         properties = {
           metrics = [
             [
@@ -25,10 +22,10 @@ resource "aws_cloudwatch_dashboard" "main" {
               module.ec2_instance.id
             ]
           ]
-          period = 300
+          period = var.cw_widget_period
           stat   = "Average"
-          region = "eu-west-1"
-          title  = "EC2 Instance CPU"
+          region = var.aws_region
+          title  = "${var.stack} Instance ${metric}"
         }
       }
     ]
